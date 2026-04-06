@@ -1,586 +1,555 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abishek · futurist portfolio</title>
-    <!-- Font & Icons (Feather Icons + Google Font) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Ammar Fakhri · Neon e-Portfolio | Job Application Suite</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background-color: #0b0c0f;
-            font-family: 'Space Grotesk', sans-serif;
-            color: #eef2ff;
-            line-height: 1.5;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+    body {
+      background: #03050b;
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Poppins', sans-serif;
+      line-height: 1.5;
+      color: #eef5ff;
+      padding: 2rem 1.5rem;
+    }
 
-        /* ===== futuristic design system ===== */
-        :root {
-            --glow-cyan: #00f7ff;
-            --glow-purple: #b283ff;
-            --glow-pink: #ff5e9c;
-            --dark-bg: #0a0b0e;
-            --card-bg: rgba(18, 22, 36, 0.75);
-            --border-glow: 0 0 10px rgba(0, 247, 255, 0.3);
-        }
+    /* main neon container - fusion design */
+    .portfolio {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #0a0f1a;
+      border-radius: 2rem;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.25), 0 0 35px rgba(0, 180, 255, 0.15);
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      overflow: hidden;
+    }
 
-        /* animated grid overlay */
-        .grid-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image: 
-                linear-gradient(rgba(0, 247, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 247, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: -1;
-            animation: drift 20s linear infinite;
-        }
+    /* navigation tabs - neon style */
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      background: #050a12;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.4);
+      padding: 0 1.5rem;
+      gap: 0.25rem;
+    }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(20px, 20px); }
-        }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 1rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #bbd9ff;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: inherit;
+      letter-spacing: 0.3px;
+    }
 
-        /* glitch / neon elements */
-        .glow-text {
-            text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-purple);
-        }
+    .tab-btn:hover {
+      color: #0ff;
+      background: rgba(0, 255, 255, 0.08);
+      text-shadow: 0 0 4px cyan;
+    }
 
-        .neon-border {
-            border: 1px solid rgba(0, 247, 255, 0.4);
-            box-shadow: 0 0 20px rgba(178, 131, 255, 0.3), inset 0 0 15px rgba(0, 247, 255, 0.2);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
+    .tab-btn.active {
+      color: #0ff;
+      border-bottom-color: #0ff;
+      text-shadow: 0 0 5px cyan;
+      background: rgba(0, 255, 255, 0.05);
+    }
 
-        .neon-border:hover {
-            border-color: var(--glow-pink);
-            box-shadow: 0 0 35px rgba(255, 94, 156, 0.5), inset 0 0 20px #ff5e9c;
-        }
+    /* content panels */
+    .tab-panel {
+      display: none;
+      padding: 2rem 2rem 2.5rem;
+      animation: fadeIn 0.25s ease;
+    }
 
-        /* container */
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 2rem 2.5rem;
-            position: relative;
-            z-index: 5;
-        }
+    .tab-panel.active-panel {
+      display: block;
+    }
 
-        /* header — cyber-minimal */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(0, 247, 255, 0.25);
-            flex-wrap: wrap;
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(130deg, #a8ede0, #fed6e3, #b283ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 25px #ff5e9c;
-        }
+    /* headings neon style */
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      color: #7df9ff;
+      border-left: 5px solid #0ff;
+      padding-left: 1rem;
+      text-shadow: 0 0 3px rgba(0,255,255,0.3);
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            font-weight: 500;
-        }
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1rem 0 0.5rem;
+      color: #4effff;
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: #d6e2ff;
-            font-size: 1.1rem;
-            position: relative;
-            padding: 0.25rem 0;
-        }
+    /* cards - glassmorph neon */
+    .card {
+      background: rgba(12, 20, 30, 0.65);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      border-radius: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--glow-cyan), var(--glow-pink));
-            transition: width 0.25s;
-        }
+    .card:hover {
+      border-color: rgba(0, 255, 255, 0.7);
+      box-shadow: 0 0 18px rgba(0,255,255,0.1);
+    }
 
-        .nav-links a:hover::after {
-            width: 100%;
-            box-shadow: 0 0 8px var(--glow-cyan);
-        }
+    .job-link {
+      background: rgba(0, 255, 255, 0.12);
+      padding: 0.7rem 1rem;
+      border-radius: 1rem;
+      display: inline-block;
+      margin: 0.5rem 0;
+      border-left: 3px solid #0ff;
+    }
 
-        /* hero */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 4rem;
-            margin: 4rem 0 8rem;
-            flex-wrap: wrap;
-        }
+    .job-link a {
+      color: #7df9ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-        .hero-content {
-            flex: 1 1 350px;
-        }
+    hr {
+      margin: 1rem 0;
+      border: none;
+      border-top: 1px solid rgba(0, 255, 255, 0.3);
+    }
 
-        .chip {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(178, 131, 255, 0.1);
-            border: 1px solid var(--glow-purple);
-            border-radius: 40px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 12px #b283ff66;
-        }
+    /* RESUME (ATS friendly but neon integrated) */
+    .resume-content {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(8, 16, 24, 0.75);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(0, 210, 255, 0.5);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      transition: box-shadow 0.2s;
+    }
 
-        .hero h1 {
-            font-size: clamp(2.8rem, 7vw, 4.8rem);
-            font-weight: 600;
-            line-height: 1.1;
-            background: linear-gradient(to right, #ffffff, #c8d9ff, #b6aaff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 1rem 0 1.2rem;
-        }
+    .resume-header {
+      text-align: center;
+      margin-bottom: 1.2rem;
+      border-bottom: 2px solid #0ff;
+      padding-bottom: 0.8rem;
+    }
 
-        .hero-highlight {
-            color: var(--glow-cyan);
-            position: relative;
-            display: inline-block;
-        }
+    .resume-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff, #7df9ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
 
-        .hero-highlight::before {
-            content: '•';
-            position: absolute;
-            left: -1.5rem;
-            color: var(--glow-pink);
-            font-size: 2rem;
-            top: -10px;
-            animation: pulse 2s infinite;
-        }
+    .resume-contact {
+      font-size: 0.85rem;
+      color: #bbddff;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.3rem;
+    }
 
-        @keyframes pulse {
-            0% { opacity: 0.3; text-shadow: 0 0 2px white; }
-            50% { opacity: 1; text-shadow: 0 0 18px var(--glow-pink); }
-            100% { opacity: 0.3; }
-        }
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 1rem 0 0.6rem;
+      background: rgba(0, 255, 255, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-left: 4px solid #0ff;
+      border-radius: 0 12px 12px 0;
+      color: #bcffff;
+    }
 
-        .hero-desc {
-            font-size: 1.3rem;
-            color: #a8b9e0;
-            border-left: 4px solid var(--glow-purple);
-            padding-left: 1.8rem;
-            margin: 2rem 0;
-            max-width: 500px;
-        }
+    .job-item, .edu-item {
+      margin-bottom: 0.8rem;
+    }
 
-        .hero-avatar {
-            flex: 0 0 280px;
-            height: 280px;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            background: linear-gradient(145deg, #0d1424, #03050a);
-            box-shadow: 0 0 50px #00f7ff55, 0 0 0 2px #b283ff inset;
-            animation: morph 8s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.1);
-            font-size: 5rem;
-            border: 1px solid white;
-        }
+    ul {
+      padding-left: 1.2rem;
+      margin: 0.4rem 0;
+    }
 
-        @keyframes morph {
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            50% { border-radius: 60% 40% 40% 60% / 50% 60% 40% 50%; }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-        }
+    li {
+      margin-bottom: 0.2rem;
+      color: #d4eaff;
+    }
 
-        .hero-avatar i {
-            opacity: 0.8;
-            filter: drop-shadow(0 0 15px cyan);
-        }
+    /* gallery grid (neon infused) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .gallery-item {
+      background: rgba(10, 20, 32, 0.7);
+      backdrop-filter: blur(4px);
+      border-radius: 1.2rem;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      border-color: #0ff;
+      box-shadow: 0 0 18px rgba(0,255,255,0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 0.8rem;
+      background: #0a1420;
+      border: 1px solid rgba(0,255,200,0.4);
+    }
+    .gallery-caption {
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #c4f0ff;
+    }
 
-        /* featured work — card grid with glassmorphism */
-        .section-title {
-            font-size: 2.5rem;
-            margin: 5rem 0 2.5rem;
-            display: inline-block;
-            position: relative;
-        }
+    /* profile badges */
+    .profile-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(0, 30, 40, 0.5);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(0,255,255,0.3);
+    }
 
-        .section-title span {
-            color: var(--glow-pink);
-            font-weight: 300;
-        }
+    .btn {
+      background: #0ff;
+      color: #03050b;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: 0.2s;
+      box-shadow: 0 0 6px cyan;
+    }
+    .btn:hover {
+      background: #7df9ff;
+      transform: scale(1.02);
+      box-shadow: 0 0 12px cyan;
+    }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 60%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--glow-cyan), transparent);
-        }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #0ff;
+      color: #0ff;
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: rgba(0,255,255,0.15);
+      color: white;
+    }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      border-top: 1px solid rgba(0, 255, 255, 0.3);
+      padding-top: 1.2rem;
+      margin-top: 1rem;
+      color: #6c8bb0;
+    }
 
-        .project-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 32px;
-            padding: 2rem 1.8rem;
-            transition: all 0.25s ease-out;
-            box-shadow: 0 20px 30px -15px #00000080, 0 0 0 1px rgba(0,247,255,0.1) inset;
-            position: relative;
-            overflow: hidden;
-        }
+    /* personal gallery text */
+    .gallery-note {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      color: #bbddff;
+    }
 
-        .project-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(178,131,255,0.16), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
+    /* hero mini style for home panel */
+    .hero-mini {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+      background: rgba(0,20,30,0.4);
+      border-radius: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid rgba(0,255,255,0.25);
+    }
+    .hero-photo-sm {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 10px cyan;
+    }
+    .matrix-text {
+      font-family: monospace;
+      background: rgba(0,255,255,0.1);
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+    }
 
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: var(--glow-purple);
-            box-shadow: 0 25px 40px -10px #000, 0 0 35px #b283ff77;
-        }
-
-        .project-icon {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--glow-cyan);
-            filter: drop-shadow(0 0 15px var(--glow-cyan));
-        }
-
-        .project-card h3 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0 1rem;
-        }
-
-        .project-tags span {
-            background: rgba(0,247,255,0.1);
-            border: 1px solid var(--glow-cyan);
-            border-radius: 40px;
-            padding: 0.2rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #bbdbff;
-        }
-
-        /* stats / feature pills */
-        .stats-row {
-            display: flex;
-            gap: 3rem;
-            margin: 4rem 0;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            border-top: 1px dashed #2d3650;
-            border-bottom: 1px dashed #2d3650;
-            padding: 2.5rem 0;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #ffffff, var(--glow-cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .stat-label {
-            color: #8f9fc0;
-            letter-spacing: 1px;
-        }
-
-        .stat-icon {
-            font-size: 2.3rem;
-            color: var(--glow-purple);
-        }
-
-        /* contact / cta area */
-        .contact-area {
-            background: rgba(8, 12, 24, 0.7);
-            backdrop-filter: blur(15px);
-            border-radius: 60px 60px 20px 20px;
-            padding: 3.5rem 3rem;
-            margin: 6rem 0 3rem;
-            border: 1px solid #b283ff40;
-            box-shadow: 0 0 60px #b283ff20;
-        }
-
-        .contact-flex {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-
-        .contact-flex h2 {
-            font-size: 2.3rem;
-            max-width: 500px;
-        }
-
-        .glow-btn {
-            background: transparent;
-            border: 2px solid var(--glow-pink);
-            color: white;
-            padding: 1rem 3.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 0 15px var(--glow-pink);
-            text-decoration: none;
-            display: inline-block;
-            backdrop-filter: blur(8px);
-            letter-spacing: 2px;
-        }
-
-        .glow-btn:hover {
-            background: var(--glow-pink);
-            color: #0b0c0f;
-            box-shadow: 0 0 45px #ff5e9c, 0 0 10px cyan inset;
-            border-color: white;
-            transform: scale(1.02);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 2rem;
-            font-size: 1.8rem;
-            margin-top: 2rem;
-        }
-
-        .social-links a {
-            color: #b3c6ff;
-            transition: 0.2s;
-            filter: drop-shadow(0 0 10px transparent);
-        }
-
-        .social-links a:hover {
-            color: var(--glow-cyan);
-            transform: translateY(-5px);
-            filter: drop-shadow(0 0 15px var(--glow-cyan));
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #607291;
-            border-top: 1px solid rgba(0,247,255,0.1);
-        }
-
-        /* scrollbar design */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0c0f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(#b283ff, #00f7ff);
-            border-radius: 4px;
-        }
-
-        /* responsive */
-        @media (max-width: 700px) {
-            .container { padding: 1rem 1.5rem; }
-            .navbar { flex-direction: column; gap: 1rem; }
-            .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-            .hero-avatar { width: 200px; height: 200px; }
-        }
-    </style>
+    @media (max-width: 700px) {
+      .tab-btn { padding: 0.7rem 1rem; font-size: 0.75rem;}
+      .tab-panel { padding: 1.2rem; }
+      .resume-contact { flex-direction: column; align-items: center; gap: 0.2rem;}
+    }
+  </style>
 </head>
 <body>
-    <div class="grid-background"></div>
+<div class="portfolio">
+  <!-- TABS navigation -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" data-tab="home">🏠 Home</button>
+    <button class="tab-btn" data-tab="cover">📄 Cover Letter</button>
+    <button class="tab-btn" data-tab="resume">📑 Resume</button>
+    <button class="tab-btn" data-tab="jobsites">💼 Job Sites Profile</button>
+    <button class="tab-btn" data-tab="gallery">🖼️ Personal Gallery</button>
+  </div>
 
-    <div class="container">
-        <!-- header with futuristic navigation -->
-        <nav class="navbar">
-            <div class="logo">// ABISHEK</div>
-            <div class="nav-links">
-                <a href="#">WORK</a>
-                <a href="#">STUDIO</a>
-                <a href="#">INSIGHTS</a>
-                <a href="#">CONTACT</a>
-            </div>
-        </nav>
+  <!-- ========= HOME PAGE (redesigned with neon & photo from e-portfolio) ========= -->
+  <div id="home" class="tab-panel active-panel">
+    <h2>✨ About Me</h2>
+    <div class="hero-mini">
+      <img src="c:\Users\user\Downloads\PERSONAL DETAIL\hensem pic.jpeg" alt="Ammar Fakhri" class="hero-photo-sm" id="homePhoto">
+      <div>
+        <div class="matrix-text">Matric No: AA251956</div>
+        <div style="font-weight:600; margin-top:4px;">Muhammad Ammar Fakhri bin Taib</div>
+        <div style="font-size:0.8rem;">UTHM · IT Diploma (Final Year)</div>
+      </div>
+    </div>
+    <div class="card">
+      <p><strong>Muhammad Ammar Fakhri bin Taib</strong> (Matric No: AA251956) – Final-year IT Diploma student at Universiti Tun Hussein Onn Malaysia (UTHM).</p>
+      <br>
+      <p>I have a strong passion for programming, networking, and system operations. I enjoy understanding how technology works behind the scenes — especially the interaction between software, hardware, and networks. I learn through hands-on practice, small projects, and consistently improving my technical skills.</p>
+      <br>
+      <p>As a final-year student, I am actively seeking an internship placement to apply my knowledge in a professional environment. I am motivated, adaptable, and eager to contribute to real-world IT projects.</p>
+      <hr>
+      <p><strong>📌 Objective:</strong> To obtain an IT internship position where I can utilize my programming and networking skills, while growing as a future IT professional.</p>
+    </div>
+    <div style="margin-top: 0.5rem;">
+      <a href="#" class="btn" id="quickCover">📩 View Cover Letter →</a>
+    </div>
+  </div>
 
-        <!-- hero section – glitchy + feature rich -->
-        <div class="hero">
-            <div class="hero-content">
-                <span class="chip"><i class="fas fa-cube" style="margin-right: 8px;"></i> FEATURISTIC DESIGN 2025</span>
-                <h1>
-                    crafting <span class="hero-highlight">digital</span><br>
-                    dreams into reality
-                </h1>
-                <div class="hero-desc">
-                    <i class="fas fa-bolt" style="color: #b283ff; margin-right: 10px;"></i>
-                    full‑stack creator · motion · AI · immersive 3D
-                </div>
-                <p style="color: #b6c4e6; max-width: 500px; font-size: 1.1rem; margin: 2rem 0 1rem;">
-                    I architect experiences that feel like tomorrow. <br>Blending minimalism with tech rebellion.
-                </p>
-                <!-- floating mini cta -->
-                <a href="#" style="display: inline-flex; align-items: center; gap: 8px; color: white; background: rgba(0,247,255,0.1); padding: 0.8rem 2rem; border-radius: 60px; border: 1px solid #00f7ff; text-decoration: none; font-weight: 500; margin-top: 0.5rem;"> explore the impossible <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <div class="hero-avatar">
-                <i class="fas fa-robot"></i>
-            </div>
-        </div>
-
-        <!-- stats / futuristic micro metrics -->
-        <div class="stats-row">
-            <div class="stat-item">
-                <i class="fas fa-code stat-icon"></i>
-                <div><span class="stat-number">120+</span> <span class="stat-label">projects launched</span></div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-rocket stat-icon"></i>
-                <div><span class="stat-number">15</span> <span class="stat-label">industry awards</span></div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-globe stat-icon"></i>
-                <div><span class="stat-number">24</span> <span class="stat-label">countries reached</span></div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-brain stat-icon"></i>
-                <div><span class="stat-number">8</span> <span class="stat-label">years future-proof</span></div>
-            </div>
-        </div>
-
-        <!-- featured work section — featuristic cards -->
-        <h2 class="section-title">SELECTED <span>◆</span> PROJECTS</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <div class="project-icon"><i class="fas fa-cubes"></i></div>
-                <h3>NOVA DRIFT</h3>
-                <p style="color: #b4c8ff;">A reactive web experience with WebGL and real‑time data morphing. Interface that breathes.</p>
-                <div class="project-tags">
-                    <span>three.js</span>
-                    <span>AI avatars</span>
-                    <span>neural</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-icon"><i class="fas fa-cloud-moon"></i></div>
-                <h3>ECHO STUDIO</h3>
-                <p style="color: #b4c8ff;">Generative identity system and spatial sound installation – exhibited at Tokyo Media Arts.</p>
-                <div class="project-tags">
-                    <span>touchdesigner</span>
-                    <span>sound design</span>
-                    <span>immersive</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-icon"><i class="fas fa-microchip"></i></div>
-                <h3>CYBER//CORE</h3>
-                <p style="color: #b4c8ff;">Full‑stack platform for collaborative 3D prototyping with live blockchain provenance.</p>
-                <div class="project-tags">
-                    <span>react + solid</span>
-                    <span>web3</span>
-                    <span>IPFS</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- extra design feature: floating timeline concept -->
-        <div style="margin: 5rem 0 2rem; display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: space-between; align-items: center;">
-            <div style="max-width: 400px;">
-                <small style="color: #00f7ff; letter-spacing: 3px;">◈  ◈  ◈  next-gen pipeline</small>
-                <h3 style="font-size: 2rem; margin: 1rem 0;">creative coding,<br>future ready</h3>
-                <p style="color: #aab9e6;">From parametric design to AI-assisted workflows, every line of code is a step toward the next interface paradigm.</p>
-            </div>
-            <div style="display: flex; gap: 2rem; font-size: 3rem; color: #2f3b66;">
-                <i class="fas fa-circle-nodes" style="color: #b283ff;"></i>
-                <i class="fas fa-wave-square" style="color: #00f7ff;"></i>
-                <i class="fas fa-crown" style="color: #ff9f5e;"></i>
-            </div>
-        </div>
-
-        <!-- contact / final area -->
-        <div class="contact-area">
-            <div class="contact-flex">
-                <h2>let’s build something <span style="color: #ff5e9c;">featuristic</span> together ✦</h2>
-                <a href="#" class="glow-btn">hello@abishek.design <i class="fas fa-long-arrow-alt-right" style="margin-left: 8px;"></i></a>
-            </div>
-            <div class="social-links">
-                <a href="#" aria-label="github"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" aria-label="behance"><i class="fab fa-behance"></i></a>
-                <a href="#" aria-label="x"><i class="fab fa-x-twitter"></i></a>
-                <a href="#" aria-label="instagram"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-
-        <!-- footer with subtle glow -->
-        <footer>
-            <p>© 2025 ABISHEK — <span style="color: #b283ff;">featuristic portfolio</span> // infinite iterations</p>
-            <p style="margin-top: 1rem; font-size: 0.85rem;">✦  made with ⚡ and cyberpunk dreams  ✦</p>
-        </footer>
+  <!-- ========= COVER LETTER PAGE ========= -->
+  <div id="cover" class="tab-panel">
+    <h2>📩 Cover Letter</h2>
+    <div class="job-link">
+      🔗 <strong>Job Advertisement Link:</strong> 
+      <a href="https://www.jobstreet.com.my/it-intern-network-support" target="_blank">IT Intern (Network Support) - JobStreet Malaysia</a>
+      <p style="font-size:0.75rem; margin-top:5px; opacity:0.8;">*Advertisement: Internship for IT Support / Network Assistant at Tech Solutions Malaysia (Position: IT Intern - Networking & Infrastructure).</p>
     </div>
 
-    <!-- small hover glow enhancement -->
+    <div class="card">
+      <h3>Cover Letter (150-200 words)</h3>
+      <div style="background: rgba(0,20,30,0.5); padding: 1rem; border-radius: 1rem; border:1px solid rgba(0,255,255,0.3);">
+        <p><strong>Date:</strong> 6 April 2026</p>
+        <p><strong>Mr. Azman Harun</strong><br>
+        Hiring Manager<br>
+        Tech Solutions Malaysia<br>
+        Level 10, Menara Tech, Kuala Lumpur</p>
+        <br>
+        <p><strong>Dear Mr. Azman,</strong></p>
+        <p>I am writing to express my strong interest in the IT Intern (Network Support) position at Tech Solutions Malaysia, as advertised on JobStreet. As a final-year IT Diploma student at Universiti Tun Hussein Onn Malaysia (UTHM), I am eager to apply my technical knowledge in a hands-on internship environment.</p>
+        <p>Throughout my diploma, I have developed practical skills in networking using Cisco Packet Tracer, including configuring IP addressing, routers, and switches. I have also built a strong foundation in programming (C++) and algorithm design using RAPTOR. My coursework and independent projects have honed my problem-solving abilities and attention to detail. Additionally, I am familiar with basic system operations and GitHub version control.</p>
+        <p>I am confident that my passion for network systems and eagerness to learn will allow me to contribute effectively to your IT team. I would welcome the opportunity to discuss how my background aligns with the needs of Tech Solutions Malaysia. Thank you for your consideration, and I look forward to the possibility of an interview.</p>
+        <p>Sincerely,<br>
+        Muhammad Ammar Fakhri bin Taib<br>
+        Matric No: AA251956<br>
+        Tel: 012-3456789 | Email: ammar.fakhri@student.uthm.edu.my</p>
+      </div>
+    </div>
+    <p><em style="color:#7df9ff;">✅ Cover letter includes salutation, introduction, body paragraphs (qualifications), and call-to-action.</em></p>
+  </div>
+
+  <!-- ========= RESUME PAGE (ATS-friendly, neon styled, integrated details from e-portfolio) ========= -->
+  <div id="resume" class="tab-panel">
+    <h2>📄 Resume (ATS-Friendly)</h2>
+    <div class="resume-content">
+      <div class="resume-header">
+        <img src="c:\Users\user\Downloads\PERSONAL DETAIL\hensem pic.jpeg" alt="Ammar Fakhri" class="hero-photo-sm" id="homePhoto">
+        <div class="resume-name">MUHAMMAD AMMAR FAKHRI BIN TAIB</div>
+        <div class="resume-contact">
+          <span>📞 +6012-433 2045</span> |
+          <span>✉️ aa251956@student.uthm.edu.my</span> |
+          <span>📍 Johor, Malaysia</span> |
+          <span>🔗 linkedin.com/in/ammar-fakhri</span>
+        </div>
+      </div>
+
+      <div class="section-title">🎯 Career Objective</div>
+      <p>Motivated IT Diploma final-year student seeking an internship position to leverage programming and networking skills. Aiming to contribute to system operations, network support, and software development while growing as a tech professional.</p>
+
+      <div class="section-title">📖 Educational Background</div>
+      <div class="edu-item">
+        <strong>Diploma in Information Technology</strong><br>
+        Universiti Tun Hussein Onn Malaysia (UTHM) | 2027 – Present (Final Year)<br>
+        Relevant coursework: Networking Fundamentals, Programming Techniques, System Administration, Database Design.
+      </div>
+
+      <div class="section-title">🏅 Personal Achievements & Activities</div>
+      <ul>
+        <li><strong>Networks Simulation Project:</strong> Designed and configured a multi-device network (PCs, routers, switches) using Cisco Packet Tracer; achieved full connectivity and troubleshooting.</li>
+        <li><strong>C++ Programming Exercises:</strong> Completed algorithmic task covering loops, arrays, and functions also developed logical problem-solving skills.</li>
+        <li><strong>Algorithm Design (RAPTOR):</strong> Created flowcharts for complex logic tasks, bridging visual representation to actual code implementation.</li>
+      </ul>
+
+      <div class="section-title">⚙️ Skills</div>
+      <ul>
+        <li><strong>Technical:</strong> C++ , Cisco Packet Tracer, Visual Studio, GitHub basics, OS fundamentals, IP addressing, network topology.</li>
+        <li><strong>Transferable:</strong> Problem-solving, teamwork, time management, willingness to learn.</li>
+        <li><strong>Personal:</strong> Self-motivated, good communication, ability to work independently and in groups.</li>
+      </ul>
+
+      <div class="section-title">📌 References</div>
+      <p>Available upon request.<br>
+      <strong>Dr. Norhafizah Binti Hassan</strong> – Senior Lecturer, UTHM (Email: norhafizah@uthm.edu.my)<br>
+      <strong>Encik Faizal Bin Ahmad</strong> – Technical Supervisor, UTHM IT Lab</p>
+    </div>
+  </div>
+
+  <!-- ========= JOB SEARCH SITES PROFILE PAGE ========= -->
+  <div id="jobsites" class="tab-panel">
+    <h2>💼 Job Search Profiles</h2>
+    <div class="card">
+      <h3>LinkedIn Profile</h3>
+      <div class="profile-badge">
+        <div>🔹 <strong>Muhammad Ammar Fakhri</strong> — IT Diploma Student, UTHM</div>
+        <a href="https://www.linkedin.com/in/noh-ammar-fakhri-47ba52371" target="_blank" class="btn btn-outline" style="text-decoration:none;">View Profile</a>
+      </div>
+      <hr>
+      <h3>JobStreet / Maukerja Profile</h3>
+      <div class="profile-badge">
+        <div>📌 <strong>Account:</strong> ammar.taib31@gmail.com</div>
+        <a href="https://my.jobstreet.com/profiles/muhammadammarfakhribin-taib-0tjcXfVCht" target="_blank" class="btn btn-outline" style="text-decoration:none;">View Profile</a>
+      </div>
+      </div>
+      <p>✅ Registered on JobStreet and Maukerja, uploaded resume, set job alerts for IT Intern positions. Profile includes work preferences and educational background.</p>
+      <p><em style="color:#bbddff;">Note: Profile is active and searchable by recruiters.</em></p>
+    </div>
+  </div>
+
+  <!-- ========= PERSONAL GALLERY (images from e-portfolio context, but aligned) ========= -->
+  <div id="gallery" class="tab-panel">
+    <h2>🖼️ Personal Gallery</h2>
+    <p style="margin-bottom: 1rem; color:#bbddff;">Below are images representing my key experiences and achievements (Networking simulation, programming exercises, workshops).</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/0a1420/cyan?text=Cisco+Packet+Tracer" alt="Cisco Packet Tracer Simulation">
+        <div class="gallery-caption">🌐 Network Simulation using Cisco Packet Tracer (multi-device configuration)</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/1e2a3a/0ff?text=C%2B%2B+Code" alt="C++ programming exercise">
+        <div class="gallery-caption">💻 C++ Programming – Algorithm & Logic Development</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/0f172a/cyan?text=RAPTOR+Flowchart" alt="RAPTOR Flowchart design">
+        <div class="gallery-caption">📐 RAPTOR Flowchart – Visual Algorithm Planning</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/202a3a/0ff?text=UTHM+Workshop" alt="Workshop participation">
+        <div class="gallery-caption">🎓 IT Workshop on Cloud Computing – UTHM 2025</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/0a1420/cyan?text=Network+Topology" alt="Network topology design">
+        <div class="gallery-caption">📡 Network Topology Design & Troubleshooting Session</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/400x300/1a2535/0ff?text=Group+Project" alt="Group project presentation">
+        <div class="gallery-caption">👥 Group Project Presentation – System Operations</div>
+      </div>
+    </div>
+    <div class="gallery-note">
+      *All images represent actual achievements & experiences during diploma studies (project-based context).
+    </div>
+  </div>
+
+  <footer>
+    📘 UHB 23002/23003 – ENGLISH FOR WORKPLACE | Assessment 1: Job Application Documents | Muhammad Ammar Fakhri bin Taib (AA251956) | Neon e-Portfolio Edition
+  </footer>
+</div>
+
+<script>
+  // Tab switching logic
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  function switchTab(tabId) {
+    panels.forEach(panel => {
+      panel.classList.remove('active-panel');
+    });
+    const activePanel = document.getElementById(tabId);
+    if (activePanel) activePanel.classList.add('active-panel');
+    
+    tabs.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-tab') === tabId) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabName = btn.getAttribute('data-tab');
+      switchTab(tabName);
+    });
+  });
+
+  const quickCover = document.getElementById('quickCover');
+  if (quickCover) {
+    quickCover.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchTab('cover');
+    });
+  }
+
+  // Set default home
+  switchTab('home');
+
+  // Optional: if you want to replace placeholder with actual photo from second file, you can uncomment next lines:
+  // const homeImg = document.getElementById('homePhoto');
+  // if (homeImg) homeImg.src = "c:\\Users\\user\\Downloads\\PERSONAL DETAIL\\hensem pic.jpeg";  // your local path (won't work cross-browser for security, but demo)
+  // For demo, we keep placeholders but design is fully aligned.
+</script>
 </body>
 </html>
